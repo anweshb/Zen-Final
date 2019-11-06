@@ -3,7 +3,7 @@ from django.contrib.auth.models import User,auth
 from django.contrib import messages
 # from app1.models import Doctor
 from app1.forms import (FeedbackForm,Question1Form,Question2Form,Question3Form,Question4Form,
-                        Question5Form,Question6Form,Question7Form,Question8Form,Question9Form)
+                        Question5Form,Question6Form,Question7Form,Question8Form,Question9Form,DoctorForm,DoctorRegistrationForm)
 from time import time as my_timer
 from app1.models import (Responses1,Responses2,Responses3,Responses4,
                         Responses4,Responses5,Responses6,Responses8,Responses7,
@@ -12,7 +12,9 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import login
 def HomePage(request):
     return render(request,'homepage.html')
-
+def success(request):
+    return render(request,'success.html')
+    
 def RegisterUser(request):
     if request.method =="POST":
         first_name = request.POST["fname"]
@@ -45,19 +47,34 @@ def RegisterUser(request):
         return render(request,'registeruser.html')
 
 def RegisterDoctor(request):
+    registered = False
     if request.method == "POST":
-        form = DoctorRegistrationForm(request.POST)
+        doctor_form = DoctorForm(data=request.POST)
+        doctorregistration_form = DoctorRegistrationForm(data=request.POST)
 
-        if form.is_valid():
-            form.save()
-            return redirect('/admin')
+        if doctor_form.is_valid() and doctorregistration_form.is_valid():
+            user = doctor_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            doctor = doctorregistration_form.save(commit=False)
+            doctor.user = user
+
+            doctor.save()
+            registered = True
+
+            return redirect('success.html')
+        else:
+            messages.info(request,doctor_form.errors,doctorregistration_form.errors)
 
     else:
-        form = DoctorRegistrationForm()
-        args = {'form':form}
-        return render(request,'registerdoctor.html')
+        doctor_form = DoctorForm()
+        doctorregistration_form = DoctorRegistrationForm()
 
-
+    return render(request,'registerdoctor.html',
+                                            {'doctor_form':doctor_form,
+                                            'doctorregistration_form':doctorregistration_form,
+                                            'registerd':registered})
 def loginuser(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
