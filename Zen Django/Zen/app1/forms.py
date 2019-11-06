@@ -1,8 +1,10 @@
 from django import forms
+from django.contrib.auth.models import User
 from app1.models import Feedback,Doctor
 from app1.models import (Responses1,Responses2,Responses3,Responses4,
                         Responses4,Responses5,Responses6,Responses8,Responses7,
                         Responses9)
+from django.core.exceptions import ValidationError
 
 
 class FeedbackForm(forms.ModelForm):
@@ -11,14 +13,25 @@ class FeedbackForm(forms.ModelForm):
         model = Feedback
         fields = ('name','email','type','description')
 
-class DoctorRegistrationForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
-    class Meta:
-        model = Doctor
-        fields = ('first_name','last_name','phone_no','email_id','username',
-                    'phone_no','exp')
+class DoctorForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    class Meta():
+        model = User
+        fields = ('username','email','first_name','last_name')
 
+    def clean(self):
+        cleaned_data = super(DoctorForm,self).clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password!= confirm_password:
+            raise forms.ValidationError("Passwords Not Matching!")
+
+class DoctorRegistrationForm(forms.ModelForm):
+    class Meta():
+        model = Doctor
+        fields = ('phone_no',)
 
 class Question1Form(forms.ModelForm):
     question1 = forms.CharField(label="",widget=forms.Textarea(attrs={'class':'form-control'}))
