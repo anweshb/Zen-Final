@@ -3,15 +3,15 @@
 {% block content%}
 
 {% load staticfiles %}
-<!-- <link rel="stylesheet" href="{% static 'app1/doctor_signup.css' %}">
 <br>
   <div class="center-it">
   <h4 class="display-4"> Doctor's Sign Up Page: <h4>
     <br>
     <br>
 <form method="POST">
-  {% csrf_token %}
-{{form.as_p}}
+{% csrf_token %}
+{{doctor_form.as_p}}
+{{doctorregistration_form.as_p}}
   <input type="Submit" value="Sign Up">
     <div class="error">
       {% for message in messages %}
@@ -19,11 +19,5 @@
       {% endfor %}
     </div>
   </form>
-  </div> -->
-
-<form method="POST">
-  {% csrf_token %}
-  {{form.as_p}}
-
-</form>
-  {% endblock %}
+  </div>
+{%endblock%}
