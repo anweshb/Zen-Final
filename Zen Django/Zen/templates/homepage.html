@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+{%if user.is_authenticated%}
+<link rel="stylesheet" href="{% static 'app1/homepage.css' %}">
+<div class="centerme">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<a type="button" class="btn btn-primary" href="{% url 'getstarted' %}">Get Started</a>
+</div>
+{%else%}
+<div class="background">
+<div class="jumbotron" style="height:100vh;">
+  <br>
+  <br>
+  <br>
+  <h1 class="display-4"> WELCOME TO ZEN!</h1>
+  <p class="lead">We are here for you.</p>
+  <br>
+  <hr class="my-4">
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <div class="centerit">
+  <a type="button" class="btn btn-primary" href="{% url 'registeruser' %}">Sign Up As Someone Seeking Help</a>
+  <a type="button" class="btn btn-primary" href="{% url 'registerdoctor' %}">Sign Up As A Professional</a>
+</div>
+</div>
+</div>
+</div>
+{%endif%}
+{% endblock %}

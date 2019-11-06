@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+  <br>
+  <br>
+  <br>
+  <h3>Do you ever have any suicidal thought?</h3>
+  <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="Submit" name="" value="Next">
+  </form>
+</div>
+{%endblock%}

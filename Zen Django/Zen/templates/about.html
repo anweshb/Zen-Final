@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content%}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'app1/about.css'%}">
+      <br>
+      <br>
+      <br>
+      <div class="title">
+      <h1> We are a team of three!</h1>
+      </div>
+        <div class="images">
+<img src="{%static 'app1/tanuj.jpg' %}" onmouseover="this.src='{%static 'app1/tanujr.jpg' %}'" onmouseout="this.src='{%static 'app1/tanuj.jpg' %}'" >
+<img src="{% static 'app1/tarun.jpg' %}" onmouseover="this.src='{% static 'app1/tarunr.jpg' %}'" onmouseout="this.src='{% static 'app1/tarun.jpg' %}'" >
+<img src="{% static 'app1/anwesh.jpg' %}" onmouseover="this.src='{% static 'app1/anweshr.jpg' %}'" onmouseout="this.src='{% static 'app1/anwesh.jpg' %}'" >
+</div>
+{% endblock %}

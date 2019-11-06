@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+{% load staticfiles %}
+<br>
+<link rel="stylesheet" href="{% static 'app1/registeruser.css' %}">
+<div class="center-it">
+<h4 class="display-4">Sign Up!<h4>
+    <br>
+    <br>
+<form method="post">
+
+
+  {% csrf_token %}
+  <label for="fname">
+  <input type="text" id="fname" name="fname" placeholder="First Name" required>
+  </label>
+  <br>
+  <label for="lname">
+  <input type="text" id="lname" name="lname" placeholder="Last Name" required>
+  </label>
+  <br>
+  <label for="mail">
+  <input type="email" id="mail" name="mail" placeholder="Email ID" required>
+  </label>
+  <br>
+  <label for="username">
+  <input type="text" id="username" name="username" placeholder="Username" required>
+  </label>
+  <br>
+  <label for="pass1">
+  <input type="password" id="pass1" name="pass1" placeholder="Password" required>
+  </label>
+  <br>
+  <label for="pass2">
+  <input type="password" id="pass2" name="pass2" placeholder="Confirm Password" required>
+  </label>
+  <br>
+  <hr class="my-4">
+
+<input type="Submit" value="Sign Up">
+  <div class="error">
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
+  </div>
+</form>
+</div>
+{% endblock %}

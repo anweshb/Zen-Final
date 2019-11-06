@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+  <div class="container">
+  <h1><p style="text-align">Feedback Form</p></h1>
+  <h4><p style="text-align">Welcome to the Feedback Form</h4>
+  <h6><p style="text-align">We would love to hear your thoughts, concerns or problems with anything so that we can improve!</p></h6>
+
+<form method="POST">
+  {%csrf_token%}
+{{form.as_p}}
+<input type="Submit"  value="Submit">
+</form>
+</div>
+{% endblock %}
